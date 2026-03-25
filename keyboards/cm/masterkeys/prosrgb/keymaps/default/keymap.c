@@ -16,6 +16,12 @@
 
 #include QMK_KEYBOARD_H
 
+// Custom keycodes
+enum custom_keycodes {
+    RR_LOWER = SAFE_RANGE,
+    RR_UPPER
+};
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_all(
@@ -29,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_all(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_MPLY,  KC_MNXT,  KC_VOLU,
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_MSTP,  KC_MPRV,  KC_VOLD,
+    _______,  _______,  _______,  _______,  RR_LOWER, _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_MSTP,  KC_MPRV,  KC_VOLD,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,
     _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______,  _______
@@ -52,3 +58,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 // clang-format on
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RR_LOWER:
+            if (record->event.pressed) {
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    // Fn + Shift + R = "RapidRatings"
+                    del_mods(MOD_MASK_SHIFT);
+                    SEND_STRING("RapidRatings");
+                    add_mods(MOD_MASK_SHIFT);
+                } else {
+                    // Fn + R = "rapidratings"
+                    SEND_STRING("rapidratings");
+                }
+            }
+            return false;
+        default:
+            return true;
+    }
+}
