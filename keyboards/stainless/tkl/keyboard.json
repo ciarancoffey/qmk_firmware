@@ -2,7 +2,7 @@
     "manufacturer": "stainless",
     "keyboard_name": "tkl",
     "maintainer": "ccoffey",
-    "bootloader": "halfkay",
+    "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -13,10 +13,10 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["B6", "B5", "B4", "B3", "B2", "B1", "B0", "F0", "F1", "F2", "F3", "F4", "F5", "D0", "D1", "D2", "D3"],
-        "rows": ["C0", "C1", "C2", "C3", "C4", "C5"]
+        "cols": ["GP14", "GP13", "GP28", "GP27", "GP26", "GP5", "GP22", "GP4", "GP18", "GP21", "GP20", "GP19", "GP12", "GP0", "GP1", "GP2", "GP3"],
+        "rows": ["GP7", "GP8", "GP9", "GP10", "GP11", "GP16"]
     },
-    "processor": "at90usb1287",
+    "processor": "RP2040",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6060",
